@@ -1,0 +1,21 @@
+[Unit]
+Description=Aiogram Template
+After=network-online.target
+Wants=network-online.target
+After=redis.service
+Requires=redis.service
+After=postgresql.service
+Requires=postgresql.service
+After=nginx.service
+Requires=nginx.service
+
+[Service]
+EnvironmentFile=/path/to/.env
+WorkingDirectory=/path/to/working/directory/
+ExecStart=/path/to/uvicorn main:app --bind localhost:8000
+User=user
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
