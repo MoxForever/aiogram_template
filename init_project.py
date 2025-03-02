@@ -2,8 +2,8 @@ import os
 
 
 def init_project():
-    project_name = input()
-    project_description = input()
+    project_name = input("Enter project name: ")
+    project_description = input("Enter project description: ")
 
     project_author = os.system("git config user.name")
     project_email = os.system("git config user.email")
@@ -41,6 +41,8 @@ def init_project():
                 f.writelines(content)
 
     os.system("poetry install --no-root")
+
+    os.remove("init_project.py")
 
 
 if __name__ == "__main__":
