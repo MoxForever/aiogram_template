@@ -3,16 +3,24 @@ import os
 
 def init_project():
     project_name = input()
+    project_description = input()
+
+    project_author = os.system("git config user.name")
+    project_email = os.system("git config user.email")
 
     with open("pyproject.toml", "r") as f:
-        pyproject = f.readlines()
+        pyproject = f.read().split("\n")
 
-    for line in pyproject:
+    for i, line in enumerate(pyproject):
         if line.startswith("name = "):
-            line = f'name = "{project_name}"\n'
+            pyproject[i] = f'name = "{project_name}"'
+        elif line.startswith("description = "):
+            pyproject[i] = f'description = "{project_description}"'
+        elif line.startswith("authors = "):
+            pyproject[i] = f'authors = ["{project_author} <{project_email}>"]'
 
     with open("pyproject.toml", "w") as f:
-        f.writelines(pyproject)
+        f.write("\n".join(pyproject))
 
     os.rename("./aiogram_template", project_name)
 
@@ -31,6 +39,8 @@ def init_project():
 
             with open(filepath, "w") as f:
                 f.writelines(content)
+
+    os.system("poetry install --no-root")
 
 
 if __name__ == "__main__":
