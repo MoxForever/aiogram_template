@@ -91,7 +91,7 @@ def edit_pyproject_and_alembic(project: ProjectInfo):
 
 
 def rename_imports_and_src(project_name: str):
-    project_name_formatted = project_name.replace("-", "_").lower()
+    project_name_formatted = project_name.replace("-", "_").replace(" ", "_").lower()
 
     os.rename("./aiogram_template", project_name_formatted)
 
