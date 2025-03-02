@@ -128,6 +128,8 @@ def reinit_git():
 
 
 def init_project():
+    os.remove("init_project.py")
+    
     project = base_project_info()
     host_method = get_host_method()
 
@@ -139,8 +141,6 @@ def init_project():
     shutil.copy("example.env", ".env")
     os.system("poetry install --no-root")
     os.system("poetry update")
-
-    os.remove("init_project.py")
 
 
 if __name__ == "__main__":
