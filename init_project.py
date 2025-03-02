@@ -91,10 +91,12 @@ def edit_pyproject_and_alembic(project: ProjectInfo):
 
 
 def rename_imports_and_src(project_name: str):
-    os.rename("./aiogram_template", project_name)
+    project_name_formatted = project_name.replace("-", "_").lower()
+
+    os.rename("./aiogram_template", project_name_formatted)
 
     files_list = ["./main.py"]
-    for root, _, files in os.walk(project_name):
+    for root, _, files in os.walk(project_name_formatted):
         for file in files:
             if file.endswith(".py"):
                 files_list.append(os.path.join(root, file))
@@ -103,7 +105,7 @@ def rename_imports_and_src(project_name: str):
         content = read_file_lines(file)
         for i, l in enumerate(content):
             if l.startswith("from"):
-                content[i] = l.replace("aiogram_template", project_name)
+                content[i] = l.replace("aiogram_template", project_name_formatted)
             elif l.strip() == "":
                 continue
             else:
