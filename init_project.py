@@ -90,18 +90,24 @@ def edit_pyproject_and_alembic(project: ProjectInfo):
 
 def rename_imports_and_src(project_name: str):
     os.rename("./aiogram_template", project_name)
+
+    files_list = ["./main.py"]
     for root, _, files in os.walk(project_name):
         for file in files:
-            if not file.endswith(".py"):
+            if file.endswith(".py"):
+                files_list.append(os.path.join(root, file))
+
+    for file in files_list:
+        content = read_file_lines(file)
+        for i, l in enumerate(content):
+            if l.startswith("from"):
+                content[i] = l.replace("aiogram_template", project_name)
+            elif l.strip() == "":
                 continue
             else:
-                filepath = os.path.join(root, file)
+                break
 
-            content = read_file_lines(filepath)
-            for i, l in enumerate(content):
-                if l.startswith("from"):
-                    content[i] = l.replace("aiogram_template", project_name)
-            write_file_lines(filepath, content)
+        write_file_lines(file, content)
 
 
 def remove_unused_host_methods(host_method: str):
