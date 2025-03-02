@@ -1,5 +1,6 @@
 import os
 
+
 def init_project():
     project_name = input()
 
@@ -24,14 +25,12 @@ def init_project():
             with open(filepath, "r") as f:
                 content = f.readlines()
 
-            for l in content:
-                if l.startswith("from aiogram_tepmlate"):
-                    l = l.replace("aiogram_template", project_name)
+            for i, l in enumerate(content):
+                if l.startswith("from"):
+                    content[i] = l.replace("aiogram_template", project_name)
 
             with open(filepath, "w") as f:
                 f.writelines(content)
-
-            
 
 
 if __name__ == "__main__":
