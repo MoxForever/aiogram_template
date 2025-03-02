@@ -120,6 +120,13 @@ def remove_unused_host_methods(host_method: str):
             os.remove(path)
 
 
+def reinit_git():
+    os.system("rm -rf .git")
+    os.system("git init")
+    os.system("git add .")
+    os.system('git commit -m "Initial commit"')
+
+
 def init_project():
     project = base_project_info()
     host_method = get_host_method()
