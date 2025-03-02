@@ -7,6 +7,7 @@ from ...settings import Settings
 
 telegram_router = APIRouter(prefix=Settings().TELEGRAM_WEBHOOK_PATH)
 
+
 @telegram_router.post("")
 async def telegram(request: Request):
     settings = Settings()
