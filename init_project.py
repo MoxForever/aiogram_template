@@ -134,6 +134,7 @@ def init_project():
     edit_pyproject_and_alembic(project)
     rename_imports_and_src(project.name)
     remove_unused_host_methods(host_method)
+    reinit_git()
 
     shutil.copy("example.env", ".env")
     os.system("poetry install --no-root")
